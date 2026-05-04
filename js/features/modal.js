@@ -1,37 +1,28 @@
-function initModal(){
-    const modal = document.getElementById("contact-modal");
-    const modalContent = document.getElementById("modal-content");
-    const modalTrigger = document.getElementById("modal-trigger");
-    const modalClose = document.getElementById("modal-close");
-    const formCancel = document.getElementById("form-cancel");
+import { projectsData } from "../data/projects.js";
 
-    if(!modal || !modalContent || !modalTrigger || !modalClose || !formCancel){
-        console.log("Modal elements not found");
-        return;
-    }
-    function openModal(){
-        modal.classList.remove("hidden");
+export function initModal() {
+    const modal = document.getElementById("projectModal");
+    const modalBody = document.getElementById("modalBody");
+    const closeBtn = document.getElementById("modalClose");
 
-        setTimeout(function(){
-            modalContent.classList.remove("scale-95","opacity-0");
-        },10);
-    }
+    document.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-project-id]");
+    if (!btn) return;
 
-    function closeModal(){
-        modalContent.classList.add("scale-95","opacity-0");
-        setTimeout(function(){
-            modalContent.classList.add("hidden");
-        },200);
-    }
-    modalTrigger.addEventListener("click",openModal);
-    modalClose.addEventListener("click",closeModal);
-    formCancel.addEventListener("click",closeModal);
+    const project = projectsData.find(p => p.id === Number(btn.dataset.projectId));
+    if (!project) return;
 
-    // close when clicking on backdrop
-    modal.addEventListener("click",function(event){
-        if(event.target === modal){
-            closeModal();
-        }
+    modalBody.innerHTML = `
+        <h2>${project.name}</h2>
+        <p class="muted" style="margin:10px 0">${project.description}</p>
+        <p><strong>Status:</strong> ${project.status}</p>
+        <p><strong>Technologies:</strong> ${project.technologies.join(", ")}</p>
+    `;
+    modal.style.display = "flex";
     });
-    console.log("Modal opened successfully");
+
+    closeBtn.addEventListener("click", () => modal.style.display = "none");
+    modal.addEventListener("click", (e) => {
+    if (e.target === modal) modal.style.display = "none";
+    });
 }
