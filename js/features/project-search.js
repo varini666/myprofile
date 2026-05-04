@@ -1,56 +1,15 @@
-function initProjectSearch(){
-    const projectsContainer = document.getElementById("project-filters");
+import { projectsData } from "../data/projects.js";
+import { renderProjects } from "./project-render.js";
 
-    if(!projectsContainer){
-        console.log("Project is not found");
-        return;
-    }
-    projectsContainer.innerHTML=" ";
-    projectsData.forEach(function(projects){
-
-        const card = document.createElement("div");
-        card.className = "p-8 text-center bg-blue-100 rounded-3xl shadow-lg";
-
-        const iconText = document.createElement("span");
-        iconText.className = "text-2xl text-white font-bold";
-        iconText.textContent = projects.shortLabel;
-
-        const projectsName = document.createElement("h3");
-        projectsName.className = "text-xl font-bold mb-2";
-        projectsName.textContent = projects.name;
-
-        const projectsCategory = document.createElement("p");
-        projectsCategory.className = "text-md font-bold ";
-        projectsCategory.textContent = projects.category;
-
-        const projectsDescription = document.createElement("p");
-        projectsDescription.className = "text-sm ";
-        projectsDescription.textContent = projects.description;
-
-        const projectsTechnologies = document.createElement("p");
-        projectsTechnologies.className = "text-sm ";
-        projectsTechnologies.textContent = projects.technologies;
-
-const liveBtn = document.createElement("a");
-liveBtn.href = projects.liveLink;
-liveBtn.textContent = "Live Demo";
-liveBtn.className = "bg-blue-500 text-white px-4 py-2 rounded hover:bg-green-800 inline-block";
-
-const githubBtn = document.createElement("a");
-githubBtn.href = projects.githubLink;
-githubBtn.textContent = "GitHub";
-githubBtn.className = "bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-600 inline-block";
-        card.appendChild(projectsName);
-        card.appendChild(projectsCategory);
-        card.appendChild(projectsDescription);
-        card.appendChild(projectsTechnologies);
-        card.appendChild(liveBtn);
-        card.appendChild(githubBtn);
-
-
-        projectsContainer.appendChild(card);
-
+export function initProjectSearch() {
+    const search = document.getElementById("projectSearch");
+    search.addEventListener("input", () => {
+    const q = search.value.toLowerCase();
+    const filtered = projectsData.filter(p =>
+        p.name.toLowerCase().includes(q) ||
+        p.description.toLowerCase().includes(q) ||
+        p.technologies.join(" ").toLowerCase().includes(q)
+    );
+    renderProjects(filtered);
     });
-
-    console.log("Projects rendered succesfully");
 }
