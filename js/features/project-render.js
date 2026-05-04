@@ -14,9 +14,12 @@ export function renderProjects(list = projectsData) {
         ${project.technologies.map(tech => `<li>${tech}</li>`).join("")}
         </ul>
         <div class="project-actions">
-        <a class="btn btn-primary" href="${project.liveDemo}" target="_blank" rel="noreferrer">Live Demo</a>
-        <a class="btn btn-outline" href="${project.github}" target="_blank" rel="noreferrer">GitHub</a>
+                
         </div>
     </article>
     `).join("");
 }
+
+//<div class="project-actions">
+// <a class="btn btn-primary" href="${project.liveDemo}" target="_blank" rel="noreferrer">Live Demo</a>
+//<a class="btn btn-outline" href="${project.github}" target="_blank" rel="noreferrer">GitHub</a> 
