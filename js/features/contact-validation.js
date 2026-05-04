@@ -1,63 +1,22 @@
-function initContactValidation(){
-    const contactModal = document.getElementById("contact-modal");
-    const contactForm = document.getElementById("contact-form");
-    const contactEmail = document.getElementById("contact-email");
-    const contactName = document.getElementById("contact-name");
-    const formMessage = document.getElementById("form-message");
-    
-    if(!contactModal || !contactForm || !contactEmail || !contactName || !formMessage)
-    {
-        console.log("Contact form elements not found");
+export function initContactValidation() {
+    const form = document.getElementById("contactForm");
+    const message = document.getElementById("formMessage");
+
+    form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const text = document.getElementById("message").value.trim();
+
+    if (!name || !email || !text) {
+        message.textContent = "Please fill in all fields.";
+        message.style.color = "#f87171";
         return;
     }
-    
-    contactForm.addEventListener("submit",function(event){
-        event.preventDefault();
 
-        const name = contactName.value.trim();
-        const email = contactEmail.value.trim();
-
-        formMessage.textContent = "";
-        formMessage.className = "text-sm";
-
-        // Name Validation
-        if(name === ""){
-            formMessage.textContent = "Name is required";
-            formMessage.classList.add("text-red-500");
-            contactName.focus();
-            return;
-        }
-        if(name.length < 5){
-            formMessage.textContent = "Name must be at least 5 chars";
-            formMessage.classList.add("text-red-500");
-            contactName.focus();
-            return;
-        }
-        // Email validation
-        if(email === ""){
-            formMessage.textContent = "Email is required";
-            formMessage.classList.add("text-red-500");
-            contactEmail.focus();
-            return;
-        }
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;  
-
-        if(!emailPattern.test(email)){
-            formMessage.textContent = "Enter valid email";
-            formMessage.classList.add("text-red-500");
-            contactEmail.focus();
-            return;
-        }
-
-        formMessage.textContent = "Message submitted successfully";
-        formMessage.classList.add("text-green-600");
-        console.log("valid credentials:",{name:name,email:email});
-        contactForm.reset();
-    });
-    contactName.addEventListener("input",function(){
-        formMessage.textContent = "";
-    });
-    contactEmail.addEventListener("input",function(){
-        formMessage.textContent = "";
+    message.textContent = "Message sent successfully!";
+    message.style.color = "#4ade80";
+    form.reset();
     });
 }
