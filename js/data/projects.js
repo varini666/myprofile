@@ -34,11 +34,11 @@ export const projectsData = [
     },
     {
         id: 4,
-        name: "Developer Stats Dashboard",
-        category: "JavaScript",
+        name: "To-Do-List",
+        category: "Backend",
         description:
-            "Dynamic dashboard that loads developer statistics and profile insights using Fetch API.",
-        technologies: ["JavaScript", "Fetch API", "JSON"],
+            "A To-Do List backend is a server that manages tasks by handling create, read, update, and delete operations through APIs.",
+        technologies: ["ExpressJS"],
         status: "Demo",
         liveDemo: "#",
         github: "#"
